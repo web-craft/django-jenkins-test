@@ -1,0 +1,6 @@
+.idea
+celerybeat-schedule
+env
+reports
+*.pyc
+/settings/local.py
