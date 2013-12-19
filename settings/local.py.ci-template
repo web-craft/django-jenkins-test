@@ -1,0 +1,37 @@
+# This is an example settings/local.py file.
+# These settings overrides what's in settings/base.py
+
+# To extend any settings from settings/base.py here's an example:
+#from . import base
+#INSTALLED_APPS = base.INSTALLED_APPS + ('debug_toolbar',)
+
+DEBUG = True
+TEMPLATE_DEBUG = DEBUG
+
+import logging
+
+logging.basicConfig(level=logging.DEBUG)
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'db.sqlite',
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',
+        'PORT': '',
+    }
+}
+
+if DEBUG:
+    from .base import INSTALLED_APPS
+    INSTALLED_APPS += ('django_jenkins',)
+    JENKINS_TASKS = ('django_jenkins.tasks.run_pylint',
+                     'django_jenkins.tasks.run_pep8',
+                     'django_jenkins.tasks.run_pyflakes',
+                     'django_jenkins.tasks.with_coverage',
+                     'django_jenkins.tasks.django_tests',)
+
+MEDIA_ROOT = '/media/'
+STATIC_ROOT = '/static/'
+
